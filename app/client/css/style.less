@@ -1,0 +1,257 @@
+@import "./reset.less";
+@import "./flickity.less";
+@import "~@blueprintjs/core/dist/blueprint.css";
+@import "~@blueprintjs/datetime/dist/blueprint-datetime.css";
+@import "~@blueprintjs/core/dist/variables.less";
+
+// cv style
+@import "./buttons.less";
+@import "./variables.less";
+
+// view style
+@import "./new_order.less";
+@import "./orders.less";
+
+.pt-menu-item {
+  &::before {
+    color: black;
+  }
+}
+
+[class^='pt-icon-']::before {
+  font-family: "Icons16";
+}
+
+.order-spec {
+  padding: 8px 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+
+  &.as-card {
+    padding: 16px;
+    background: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+}
+
+body {
+  background-color: #F9F9F9;
+  -webkit-user-select: none;
+  user-select: none;
+  color: #373e42;
+  line-height: 1.5em;
+}
+
+#navbar-logo {
+  background: url("/images/logo.svg") no-repeat center center;
+  background-size: contain;
+  margin-top: 2px;
+  width: 80px;
+  height: 50%;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h4 {
+  font-size: 24px;
+  color: #0d2b3e;
+  font-weight: 400;
+  line-height: 32px;
+  margin-bottom: 4px;
+}
+
+p {
+  line-height: 1.5 !important;
+}
+
+ol {
+  padding: 4px;
+
+  li {
+    line-height: 24px;
+  }
+}
+
+.pt-popover {
+  box-shadow:
+    0 0 0 1px rgba(16, 22, 26, 0.05),
+    0 2px 4px rgba(16, 22, 26, 0.1),
+    0 8px 24px rgba(16, 22, 26, 0.05)
+}
+
+.pt-navbar {
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.1);
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    border-radius: 50%;
+  }
+}
+
+.cv-toaster {
+  .pt-toast {
+    box-shadow: none;
+    line-height: 1.25em;
+  }
+}
+
+.add-address-button {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  text-align: center;
+  cursor: pointer;
+  line-height: 32px;
+  padding: 16px;
+  height: 64px;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.address-card {
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  background: white;
+  border-radius: 3px;
+  color: @gray1;
+  transition: ease-in-out color 150ms;
+
+  &:hover {
+    color: #000;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  button {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  &.selected {
+    box-shadow: 0 0 0 2px #00B0FF, inset 0 1px 3px 0 rgba(0,0,0,0.1);
+    color: black;
+  }
+}
+
+.view-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  max-width: 1024px;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-flow: column;
+  }
+
+  .section-container {
+    margin: 0 auto;
+    flex: 1;
+
+    &.flex {
+      display: flex;
+
+      @media (max-width: 768px) {
+        flex-flow: column;
+
+        section {
+          margin: 0 0 24px 0;
+        }
+      }
+    }
+
+    section {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      flex: 1;
+
+      .section-info {
+        margin: 0 24px;
+      }
+    }
+  }
+}
+
+.pt-input {
+  height: 30px;
+  padding: 0 10px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  border-radius: 2px !important;
+  transition: box-shadow ease-in-out 200ms;
+
+  &:focus {
+    box-shadow: 0 0 0 1px #00B0FF, inset 0 1px 3px 0 rgba(0,0,0,0.1);
+  }
+}
+
+.pt-non-ideal-state {
+  height: 50vh;
+  line-height: 1.5em;
+  max-width: 256px;
+  min-height: 384px;
+}
+
+.order-actions {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+
+  button {
+    box-sizing: border-box;
+    display: flex;
+    text-align: center !important;
+    width: 50%;
+
+    span {
+      margin: 0 auto;
+    }
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+  }
+}
+
+.order-summary {
+  background-color: white;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0,0,0,0.03);
+  color: #4a4a4a;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: auto;
+  z-index: @pt-z-index-overlay;
+  padding: 10px;
+  box-sizing: border-box;
+
+  .wrap {
+    min-width: 200px;
+    max-width: 512px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    .summary-actions {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+
+      > span {
+        height: 24px;
+        line-height: 24px;
+        padding: 4px;
+      }
+    }
+  }
+}

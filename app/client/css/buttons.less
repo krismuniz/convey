@@ -1,0 +1,51 @@
+.cv-button.pt-button {
+  background: white;
+  background-image: none;
+  box-shadow: none;
+  transition: background 100ms ease-in-out;
+  border-radius: 3px;
+
+  &:hover {
+    color: white;
+    background: @cv-blue;
+  }
+
+  &:disabled {
+    color: @gray4 !important;
+    background: @light-gray3 !important;
+  }
+
+  &.pt-intent-primary {
+    background: @cv-blue;
+
+    &:active:not(:disabled) {
+      background-color: @cv-blue-dark;
+    }
+  }
+
+  &.pt-intent-danger {
+    background: @cv-red;
+
+    &:active:not(:disabled) {
+      background: @cv-red-dark;
+    }
+  }
+
+  &.pt-intent-success {
+    background: @cv-green;
+
+    &:active:not(:disabled) {
+      background: @cv-green-dark;
+    }
+  }
+
+  &:hover:not(:disabled) {
+    box-shadow: none;
+  }
+
+  &:active {
+    background-image: none;
+    box-shadow: none;
+    background-image: none;
+  }
+}

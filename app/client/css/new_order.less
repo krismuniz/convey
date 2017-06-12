@@ -1,0 +1,123 @@
+.view-container {
+  .order-summary-sidebar {
+    width: 320px;
+    color: #4a4a4a;
+    height: auto;
+    padding: 16px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+}
+
+.summary-item {
+  border-radius: 3px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+
+  &.editable {
+    cursor: pointer;
+
+    &:hover {
+      background: white;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
+    }
+  }
+
+  margin-bottom: 10px;
+}
+
+.group-actions {
+  margin-top: 8px;
+}
+
+.carousel {
+  height: 280px;
+  width: 100%;
+  max-width: 980px;
+  margin: 10px auto;
+
+  .card-container:first-of-type {
+    width: 268px;
+    padding-left: 24px;
+  }
+
+  .card-container:last-of-type {
+    width: 268px;
+    padding-right: 24px;
+  }
+}
+
+.item-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px;
+
+  .card-container {
+    height: auto;
+  }
+}
+
+.card-container {
+  width: 256px;
+  height: 280px;
+  padding: 8px;
+  box-sizing: border-box;
+  flex-basis: 33.33%;
+
+  .card {
+    background-size: fill;
+    background-color: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0,0,0,0.03);
+    color: #4a4a4a;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    transition: box-shadow 150ms ease-in-out;
+
+    &:active {
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 160px;
+      background-size: cover;
+      flex-grow: 4;
+      background-color: @light-gray3;
+
+      .card-description {
+        color: white;
+      }
+    }
+
+    .card-footer {
+      flex-flow: column;
+      justify-content: flex-end;
+      padding: 10px;
+      height: auto;
+
+      .card-info {
+        flex-grow: 1;
+        margin-bottom: 10px;
+        display: flex;
+
+        .card-title {
+          font-size: 16px;
+          font-weight: 500;
+          flex-grow: 1;
+        }
+
+        .card-price {
+          color: #24b47e;
+          font-size: 13px;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+}
