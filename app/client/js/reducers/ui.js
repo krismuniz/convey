@@ -5,7 +5,8 @@ const defaultState = {
     filters: {
       from: null,
       to: null,
-      delivery: null
+      delivery: null,
+      customer: null
     }
   },
   addToOrderDialog: {
