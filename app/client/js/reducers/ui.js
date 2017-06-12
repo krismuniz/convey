@@ -6,7 +6,7 @@ const defaultState = {
       from: null,
       to: null,
       delivery: null,
-      customer: null
+      customer: ''
     }
   },
   addToOrderDialog: {

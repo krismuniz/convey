@@ -14,6 +14,7 @@ import {
 import {
   Checkbox,
   Intent,
+  InputGroup,
   Button,
   Tabs2 as Tabs,
   Tab2 as Tab
@@ -24,12 +25,29 @@ import OrderCard from '../components/OrderCard'
 
 const changeTab = ({ history }) => (newTabId, prevTabId) => history.push(`/${newTabId}`)
 
+const testData = (customer, search) => {
+  const removeNonDigits = (s) => s.replace(/\D/gi, '')
+  const regex = new RegExp(search, 'gi')
+  const regexNum = new RegExp(removeNonDigits(search), 'i')
+
+  return (
+    regex.test(customer.first_name) === true ||
+    regex.test(customer.last_name) === true ||
+    (
+      regexNum.test(removeNonDigits(customer.phone_number)) === true &&
+      removeNonDigits(search) !== ''
+    ) ||
+    regex.test(customer.email) === true
+  )
+}
+
 const filterOrders = (orders, filters) => {
   return orders
     .filter((v) => {
       return (
         (filters.from ? isAfter(v.creation_date, filters.from) : true) &&
         (filters.to ? isBefore(v.creation_date, filters.to) : true) &&
+        (filters.customer !== '' ? testData(v.customer, filters.customer) : true) &&
         (filters.delivery ? v.delivery === true : true) &&
         (filters.status ? v.status.id === filters.status : true)
       )
@@ -178,6 +196,22 @@ export default function Admin (props) {
                   })
                 }
               }
+            />
+            <InputGroup
+              value={props.ui.adminOrders.filters.customer}
+              key='customer_filter'
+              className='filter-field'
+              onChange={
+                (e) => props.dispatch(
+                  {
+                    type: 'CONFIG_ADMIN_ORDERS_FILTERS',
+                    payload: {
+                      customer: e.target.value
+                    }
+                  }
+                )
+              }
+              placeholder='Información de cliente'
             />
             <Button
               text='Limpiar filtros'
