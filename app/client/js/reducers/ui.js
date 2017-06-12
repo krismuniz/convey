@@ -40,6 +40,8 @@ export default (state = defaultState, action) => {
       } else {
         return state
       }
+    case 'RESET_NEW_ORDER':
+      return defaultState
     case 'CONFIG_ADMIN_ORDERS_FILTERS':
       return {
         ...state,
