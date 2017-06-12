@@ -32,7 +32,7 @@ export default class ItemCarousel extends React.Component {
       pageDots: false,
       wrapAround: false,
       cellAlign: 'center',
-      dragThreshold: 25
+      dragThreshold: 50
     }
 
     this.flkty = new Flickity(carousel, options)
