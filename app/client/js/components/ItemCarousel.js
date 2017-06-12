@@ -28,7 +28,7 @@ export default class ItemCarousel extends React.Component {
       initialIndex: 0,
       accessibility: true,
       freeScroll: true,
-      freeScrollFriction: 0.02,
+      freeScrollFriction: 0.2,
       pageDots: false,
       wrapAround: false,
       cellAlign: 'center',
