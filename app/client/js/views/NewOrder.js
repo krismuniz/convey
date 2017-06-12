@@ -50,7 +50,7 @@ export default class NewOrderView extends React.Component {
       this.props.local.create.order.groups.length < 1
     ) {
       this.props.dispatch({
-        type: 'HIDE_SELECT_ADDRESS_DIALOG'
+        type: 'HIDE_REVIEW_ORDER_DIALOG'
       })
     }
   }
