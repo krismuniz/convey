@@ -5,6 +5,7 @@
   "main": "./app/index.js",
   "scripts": {
     "clean": "rm -rf ./app/dist",
+    "heroku-postbuild": "npm run build",
     "build": "npm run clean && npm run build:js & npm run build:client",
     "build:js": "babel app/server -d app/dist",
     "build:client": "webpack -p",
@@ -16,7 +17,7 @@
     "lt": "lt --port 8080 --subdomain convey"
   },
   "engines": {
-    "node": "7.6.0"
+    "node": "8.0.0"
   },
   "repository": {
     "type": "git",
