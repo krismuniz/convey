@@ -44,7 +44,7 @@ export class Application extends React.Component {
             })
         })
       }
-    }, 60000)
+    }, 30000)
 
     setInterval(() => {
       if (Date.now() - this.props.data.adminOrders.last_updated >= 10000) {

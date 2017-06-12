@@ -1,7 +1,9 @@
 import { Router } from 'express'
 import db from '../../database/database'
 import pgp from 'pg-promise'
+
 import notify from '../action/notify'
+import charge from '../action/charge'
 
 const router = new Router()
 
@@ -34,6 +36,7 @@ router.get('/all', hasUser, isAdmin, async (req, res) => {
       customer_order.tax_rate,
       customer_order.paid,
       customer_order.stripe_token,
+      customer_order.stripe_charge,
       customer_order.creation_date,
       customer_order.comment,
       customer_address.label as address_label,
@@ -165,6 +168,53 @@ router.put('/', hasUser, isAdmin, async (req, res) => {
       `, { customer_id: order.customer_id })
 
       notify(order, customer)
+      charge(order, db, (err, charge) => {
+        if (err) console.log(err)
+
+        if (charge) {
+          db.one(`
+            update
+              customer_order
+            set
+              stripe_charge = $[charge],
+              paid = true
+            where
+              customer_order.id = $[id]
+            returning *
+          `, {
+            id: order.id,
+            charge: JSON.stringify(charge)
+          })
+            .then((order) => {
+              console.log(`Charged order #${order.id}`)
+              return order
+            })
+            .catch((e) => {
+              console.error(e)
+            })
+        } else {
+          db.one(`
+            update
+              customer_order
+            set
+              paid = true
+            where
+              customer_order.id = $[id]
+            returning *
+          `, {
+            id: order.id,
+            charge: JSON.stringify(charge)
+          })
+            .then((order) => {
+              console.log(`Marked order #${order.id} as paid`)
+              return order
+            })
+            .catch((e) => {
+              console.error(e)
+            })
+        }
+      })
+
       return order
     })
 

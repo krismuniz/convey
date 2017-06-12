@@ -6,8 +6,8 @@ const client = new Twilio(
 )
 
 const message = (order, customer) => ({
-  readyForPickup: `¡${customer.first_name}, tu orden (#${order.id}) está lista! Ya puedes venir a Rambito's a recogerla. Google Maps: https://goo.gl/maps/HKPJ7HpC4k82`,
-  readyForDelivery: `¡${customer.first_name}, tu orden (#${order.id}) va en camino! Nuestro repartidor te llamará si necesita instrucciones adicionales.`
+  readyForPickup: `¡${customer.first_name}, tu orden está lista! Ya puedes venir a Rambito's a recogerla. Google Maps: https://goo.gl/maps/HKPJ7HpC4k82`,
+  readyForDelivery: `¡${customer.first_name}, tu orden va en camino! Nuestro repartidor te llamará si necesita instrucciones adicionales.`
 })
 
 export default function (order, customer) {
@@ -19,7 +19,6 @@ export default function (order, customer) {
     customer.text_notifications &&
     customer.phone_number
   ) {
-    console.log('k')
     client
       .messages
       .create({

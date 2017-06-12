@@ -89,6 +89,9 @@ export default class NewOrderView extends React.Component {
         />
 
         <ReviewOrderDialog
+          disabled={
+            this.props.ui.reviewOrderDialog.hold
+          }
           isOpen={
             this.props.ui.reviewOrderDialog.show === true &&
             this.props.ui.addAddressDialog.show === false &&

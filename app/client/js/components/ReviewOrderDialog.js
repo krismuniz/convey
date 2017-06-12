@@ -15,6 +15,7 @@ import OrderSummaryTable from './OrderSummaryTable'
 import FulfillmentMethod from './FulfillmentMethod'
 
 import config from '../config'
+import debounce from 'lodash/debounce'
 
 const dialogProps = (props) => ({
   title: 'Revisa y confirma',
@@ -77,6 +78,13 @@ const placeOrder = (props) => () => {
   const total = Math.round((subtotal + (props.order.delivery ? config.delivery_fee : 0)) * (1 + config.tax_rate))
 
   if (props.order.payment_method === 'stripe') {
+    props.dispatch({
+      type: 'HOLD_REVIEW_ORDER_DIALOG',
+      payload: {
+        hold: true
+      }
+    })
+
     const handler = window.StripeCheckout.configure({
       key: process.env.STRIPE_PUBLISHABLE_KEY,
       image: '/images/logo_128.png',
@@ -176,9 +184,11 @@ export default function ReviewOrderDialog (props) {
           <Button
             className='cv-button pt-fill'
             intent={Intent.SUCCESS}
-            disabled={false}
+            loading={props.disabled}
             onClick={
-              placeOrder(props)
+              debounce(placeOrder(props), 60000, {
+                leading: true
+              })
             }
             text={
               props.order.payment_method === 'stripe'
@@ -192,6 +202,7 @@ export default function ReviewOrderDialog (props) {
 }
 
 ReviewOrderDialog.propTypes = {
+  disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   dispatch: PropTypes.func,
   order: PropTypes.object,

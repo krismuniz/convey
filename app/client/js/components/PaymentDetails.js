@@ -11,16 +11,34 @@ export default function PaymentDetails (props) {
           <p>Expira en {props.order.stripe_token.card.exp_month}/{props.order.stripe_token.card.exp_year}</p>
         </div>
         {
-          props.order.paid === false && props.asAdmin === false ? (
-            <p style={{ padding: '8px' }} className='pt-text-muted'>
-              Se concreta el cargo a la tarjeta <i>{
-                props.order.delivery
-                  ? 'después de entregar tu orden'
-                  : 'cuando recogas tu orden'
-              }
-              </i>.
-            </p>
-          ) : (null)
+          props.order.paid === false ? (
+            props.order.stripe_token ? (
+              <p style={{ padding: '12px' }} className='pt-text-muted'>
+                Se concretará el cargo a la tarjeta <i>{
+                  props.order.delivery
+                    ? 'después de entregar la orden'
+                    : 'cuando recogas la orden'
+                }
+                </i>.
+              </p>
+            ) : (
+              null
+            )
+          ) : (
+            props.order.stripe_charge ? (
+              <p style={{ padding: '12px' }} className='pt-text-muted'>
+                {
+                  props.asAdmin ? (
+                    'Se procesó el pago exitosamente.'
+                  ) : (
+                    'Se procesó el pago exitosamente. ¡Gracias por tu compra!'
+                  )
+                }
+              </p>
+            ) : (
+              null
+            )
+          )
         }
       </div>
     ) : (

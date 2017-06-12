@@ -25,7 +25,8 @@ const defaultState = {
     show: false
   },
   reviewOrderDialog: {
-    show: false
+    show: false,
+    hold: false
   }
 }
 
@@ -39,6 +40,14 @@ export default (state = defaultState, action) => {
         }
       } else {
         return state
+      }
+    case 'HOLD_REVIEW_ORDER_DIALOG':
+      return {
+        ...state,
+        reviewOrderDialog: {
+          ...state.reviewOrderDialog,
+          hold: action.payload.hold
+        }
       }
     case 'RESET_NEW_ORDER':
       return defaultState
@@ -140,14 +149,16 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         reviewOrderDialog: {
-          show: true
+          show: true,
+          hold: false
         }
       }
     case 'HIDE_REVIEW_ORDER_DIALOG':
       return {
         ...state,
         reviewOrderDialog: {
-          show: false
+          show: false,
+          hold: false
         }
       }
     default:

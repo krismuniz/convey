@@ -81,6 +81,7 @@
     "redux-promise-middleware": "4.2.0",
     "redux-thunk": "2.2.0",
     "request": "2.72.0",
+    "stripe": "4.22.0",
     "twilio": "3.3.0",
     "url-loader": "0.5.7",
     "whatwg-fetch": "2.0.3"

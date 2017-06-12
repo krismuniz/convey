@@ -186,6 +186,7 @@ router.get('/orders', async (req, res) => {
         customer_order.tax_rate,
         customer_order.paid,
         customer_order.stripe_token,
+        customer_order.stripe_charge,
         customer_order.creation_date,
         customer_order.comment,
         customer_address.label as address_label,
