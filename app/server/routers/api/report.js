@@ -26,7 +26,11 @@ router.get('/sales-by-item', hasUser, isAdmin, (req, res) => {
       item.name as item,
       item.price as price,
       order_group.creation_date
-    from order_group, group_item, item
+    from
+      customer_order,
+      order_group,
+      group_item,
+      item
     where
       order_group.id = group_item.order_group_id
       and group_item.item_id = item.id
@@ -34,7 +38,7 @@ router.get('/sales-by-item', hasUser, isAdmin, (req, res) => {
   `).then((sales) => res.send(sales))
     .catch((e) => {
       console.log(e)
-      res.send({ message: 'error' })
+      res.status(500).send({ message: 'error' })
     })
 })
 
@@ -63,7 +67,7 @@ router.get('/sales-by-customer', hasUser, isAdmin, (req, res) => {
   `).then((sales) => res.send(sales))
     .catch((e) => {
       console.log(e)
-      res.send({ message: 'error' })
+      res.status(500).send({ message: 'error' })
     })
 })
 
