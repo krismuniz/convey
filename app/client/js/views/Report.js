@@ -8,7 +8,7 @@ import isAfter from 'date-fns/is_after'
 
 import FilterBar from '../components/FilterBar'
 
-import groupBy from 'lodash/groupby'
+import groupBy from 'lodash/groupBy'
 
 import {
   Tabs2 as Tabs,
