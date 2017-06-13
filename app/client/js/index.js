@@ -84,7 +84,7 @@ export class Application extends React.Component {
           })
         }
       }
-    }, 10000)
+    }, 60000)
 
     this.props.dispatch({
       type: 'FETCH_PROFILE',
