@@ -54,8 +54,8 @@ router.get('/sales-per-item/csv', hasUser, isAdmin, (req, res) => {
     group by
       item.id
     `, {
-      from: req.query.from,
-      to: req.query.to
+      from: new Date(req.query.from),
+      to: new Date(req.query.to)
     }).then((sales) => {
       res.set({
         'Content-Type': 'text/csv',
@@ -103,8 +103,8 @@ router.get('/sales-per-customer/csv', hasUser, isAdmin, (req, res) => {
     group by
       customer.id
     `, {
-      from: req.query.from,
-      to: req.query.to
+      from: new Date(req.query.from),
+      to: new Date(req.query.to)
     }).then((sales) => {
       res.set({
         'Content-Type': 'text/csv',
