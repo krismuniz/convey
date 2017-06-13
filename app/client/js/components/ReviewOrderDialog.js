@@ -65,6 +65,15 @@ const placeOrderAction = (props) => {
         props.dispatch({
           type: 'RESET_NEW_ORDER'
         })
+
+        props.dispatch({
+          type: 'FETCH_ORDERS',
+          payload: fetch('/api/customer/orders', { credentials: 'include' })
+            .then(res => {
+              if (!res.ok) throw Error(res.statusText)
+              return res.json()
+            })
+        })
       })
     }
   }

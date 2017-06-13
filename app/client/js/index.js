@@ -22,6 +22,7 @@ import NewOrderView from './views/NewOrder'
 import OrdersView from './views/Orders'
 import ProfileView from './views/Profile'
 import AdminView from './views/Admin'
+import ReportView from './views/Report'
 
 import store from './store'
 
@@ -44,9 +45,7 @@ export class Application extends React.Component {
             })
         })
       }
-    }, 30000)
 
-    setInterval(() => {
       if (Date.now() - this.props.data.adminOrders.last_updated >= 10000) {
         if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
           this.props.dispatch({
@@ -59,7 +58,33 @@ export class Application extends React.Component {
           })
         }
       }
-    }, 30000)
+
+      if (Date.now() - this.props.data.salesByCustomer.last_updated >= 30000) {
+        if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
+          this.props.dispatch({
+            type: 'FETCH_SALES_BY_CUSTOMER',
+            payload: fetch('/api/report/sales-by-customer', { credentials: 'include' })
+              .then(res => {
+                if (!res.ok) throw Error(res.statusText)
+                return res.json()
+              })
+          })
+        }
+      }
+
+      if (Date.now() - this.props.data.salesByItem.last_updated >= 30000) {
+        if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
+          this.props.dispatch({
+            type: 'FETCH_SALES_BY_ITEM',
+            payload: fetch('/api/report/sales-by-item', { credentials: 'include' })
+              .then(res => {
+                if (!res.ok) throw Error(res.statusText)
+                return res.json()
+              })
+          })
+        }
+      }
+    }, 10000)
 
     this.props.dispatch({
       type: 'FETCH_PROFILE',
@@ -83,6 +108,28 @@ export class Application extends React.Component {
       props.dispatch({
         type: 'FETCH_ADMIN_ORDERS',
         payload: fetch('/api/order/all', { credentials: 'include' })
+          .then(res => {
+            if (!res.ok) throw Error(res.statusText)
+            return res.json()
+          })
+      })
+    }
+
+    if (props.data.salesByItem.fetched === false) {
+      props.dispatch({
+        type: 'FETCH_SALES_BY_ITEM',
+        payload: fetch('/api/report/sales-by-item', { credentials: 'include' })
+          .then(res => {
+            if (!res.ok) throw Error(res.statusText)
+            return res.json()
+          })
+      })
+    }
+
+    if (props.data.salesByCustomer.fetched === false) {
+      props.dispatch({
+        type: 'FETCH_SALES_BY_CUSTOMER',
+        payload: fetch('/api/report/sales-by-customer', { credentials: 'include' })
           .then(res => {
             if (!res.ok) throw Error(res.statusText)
             return res.json()
@@ -129,6 +176,10 @@ export class Application extends React.Component {
                 path='/admin'
                 component={this.props.data.customer.profile.is_admin ? (Admin) : Profile}
               />
+              <Route
+                path='/report'
+                component={this.props.data.customer.profile.is_admin ? (Report) : Profile}
+              />
               <Redirect to='/orders' />
             </Switch>
           </div>
@@ -152,6 +203,7 @@ const Orders = connect(s => s)(OrdersView)
 const NavigationBar = connect(s => ({ profile: s.data.customer.profile }))(NavBar)
 const Profile = connect(s => s)(ProfileView)
 const Admin = connect(s => s)(AdminView)
+const Report = connect(s => s)(ReportView)
 
 ReactDOM.render(
   <Provider store={store}>

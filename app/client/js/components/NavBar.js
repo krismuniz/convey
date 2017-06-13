@@ -26,9 +26,9 @@ const menu = (history, isAdmin) => (
         />,
         <MenuItem
           key='th-list'
-          iconName='confirm'
-          text='Reportes'
-          onClick={() => history.push('/admin')}
+          iconName='dollar'
+          text='Reportes de ventas'
+          onClick={() => history.push('/report')}
         />,
         <MenuDivider key='divider' />
       ]) : null

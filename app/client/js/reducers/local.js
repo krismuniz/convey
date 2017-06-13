@@ -112,6 +112,17 @@ export default (state = defaultState, action) => {
       } else {
         return state
       }
+    case 'ADDRESS_ADDED':
+      return {
+        ...state,
+        create: {
+          ...state.create,
+          order: {
+            ...state.create.order,
+            address: action.payload.address
+          }
+        }
+      }
     case 'HIDE_SELECT_ADDRESS_DIALOG':
     case 'ORDER_CONFIG':
       return {

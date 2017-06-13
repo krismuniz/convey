@@ -6,7 +6,15 @@ const defaultState = {
       from: null,
       to: null,
       delivery: null,
-      customer: ''
+      search: ''
+    }
+  },
+  reports: {
+    filters: {
+      from: null,
+      to: null,
+      delivery: null,
+      search: ''
     }
   },
   addToOrderDialog: {
@@ -52,6 +60,17 @@ export default (state = defaultState, action) => {
       }
     case 'RESET_NEW_ORDER':
       return defaultState
+    case 'CONFIG_REPORT_FILTERS':
+      return {
+        ...state,
+        reports: {
+          ...state.reports,
+          filters: {
+            ...state.reports.filters,
+            ...action.payload
+          }
+        }
+      }
     case 'CONFIG_ADMIN_ORDERS_FILTERS':
       return {
         ...state,

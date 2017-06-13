@@ -32,7 +32,11 @@ export default function OrderCard (props) {
     }}>
       <div style={{ flex: '100%', padding: '8px' }}>
         <h4>
-          Orden #{props.order.id}
+          {
+            props.asAdmin
+              ? `Orden #${props.order.id}`
+              : `Tu número de confirmación es: ${props.order.id}`
+          }
         </h4>
         <p className='pt-text-muted'>Creada {ago(props.order.creation_date)} por {props.order.customer.first_name} {props.order.customer.last_name}</p>
         {

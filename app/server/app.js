@@ -64,6 +64,9 @@ passport.deserializeUser(async (id, done) => {
       select * from customer
       where customer.id = $[id]
     `, { id })
+      .catch((e) => {
+        done(null, false)
+      })
 
     done(null, user)
   } catch (e) {

@@ -20,6 +20,20 @@ const defaultState = {
     last_updated: 0,
     orders: []
   },
+  salesByItem: {
+    fetching: false,
+    fetched: false,
+    error: null,
+    last_updated: 0,
+    sales: []
+  },
+  salesByCustomer: {
+    fetching: false,
+    fetched: false,
+    error: null,
+    last_updated: 0,
+    orders: []
+  },
   items: {
     fetching: false,
     fetched: false,
@@ -137,6 +151,69 @@ export default (state = defaultState, action) => {
           error: null,
           last_updated: Date.now(),
           orders: action.payload
+        }
+      }
+    case 'FETCH_SALES_BY_ITEM_PENDING':
+      return {
+        ...state,
+        salesByItem: {
+          ...state.salesByItem,
+          fetching: true,
+          fetched: false
+        }
+      }
+    case 'FETCH_SALES_BY_ITEM_REJECTED':
+      return {
+        ...state,
+        salesByItem: {
+          ...state.salesByItem,
+          fetching: false,
+          fetched: false,
+          error: action.payload,
+          last_updated: Date.now()
+        }
+      }
+    case 'FETCH_SALES_BY_ITEM_FULFILLED':
+      return {
+        ...state,
+        salesByItem: {
+          ...state.salesByItem,
+          fetching: false,
+          fetched: true,
+          error: null,
+          last_updated: Date.now(),
+          sales: action.payload
+        }
+      }
+    case 'FETCH_SALES_BY_CUSTOMER_PENDING':
+      return {
+        ...state,
+        salesByCustomer: {
+          fetching: true,
+          fetched: false
+        }
+      }
+    case 'FETCH_SALES_BY_CUSTOMER_REJECTED':
+      return {
+        ...state,
+        salesByCustomer: {
+          ...state.salesByCustomer,
+          fetching: false,
+          fetched: false,
+          error: action.payload,
+          last_updated: Date.now()
+        }
+      }
+    case 'FETCH_SALES_BY_CUSTOMER_FULFILLED':
+      return {
+        ...state,
+        salesByCustomer: {
+          ...state.salesByCustomer,
+          fetching: false,
+          fetched: true,
+          error: null,
+          last_updated: Date.now(),
+          sales: action.payload
         }
       }
     case 'FETCH_ORDERS_PENDING':

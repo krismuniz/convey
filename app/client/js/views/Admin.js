@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import isBefore from 'date-fns/is_before'
 import isAfter from 'date-fns/is_after'
 
+import FilterBar from '../components/FilterBar'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -12,32 +14,28 @@ import {
 } from 'react-router-dom'
 
 import {
-  Checkbox,
-  Intent,
-  InputGroup,
-  Button,
   Tabs2 as Tabs,
   Tab2 as Tab
 } from '@blueprintjs/core'
 
-import { DateRangeInput } from '@blueprintjs/datetime'
 import OrderCard from '../components/OrderCard'
 
 const changeTab = ({ history }) => (newTabId, prevTabId) => history.push(`/${newTabId}`)
 
-const testData = (customer, search) => {
+const testData = (params, search) => {
   const removeNonDigits = (s) => s.replace(/\D/gi, '')
   const regex = new RegExp(search, 'gi')
   const regexNum = new RegExp(removeNonDigits(search), 'i')
 
-  return (
-    regex.test(customer.first_name) === true ||
-    regex.test(customer.last_name) === true ||
+  return (/#/.test(search)) ? (
+    regex.test('#' + params.order.id)
+  ) : (
+    regex.test(params.first_name + ' ' + params.last_name) === true ||
     (
-      regexNum.test(removeNonDigits(customer.phone_number)) === true &&
+      regexNum.test(removeNonDigits(params.phone_number)) === true &&
       removeNonDigits(search) !== ''
     ) ||
-    regex.test(customer.email) === true
+    regex.test(params.email) === true
   )
 }
 
@@ -47,7 +45,7 @@ const filterOrders = (orders, filters) => {
       return (
         (filters.from ? isAfter(v.creation_date, filters.from) : true) &&
         (filters.to ? isBefore(v.creation_date, filters.to) : true) &&
-        (filters.customer !== '' ? testData(v.customer, filters.customer) : true) &&
+        (filters.search !== '' ? testData({ ...v.customer, order: v }, filters.search) : true) &&
         (filters.delivery ? v.delivery === true : true) &&
         (filters.status ? v.status.id === filters.status : true)
       )
@@ -162,73 +160,12 @@ export default function Admin (props) {
       <div className='section-container'>
         <section style={{ margin: '24px' }}>
           <h4>Administrar Órdenes</h4>
-          <div style={{ padding: '12px 0' }}>
-            <b style={{ marginRight: '8px' }}>Filtros: </b>
-            <DateRangeInput
-              value={[
-                props.ui.adminOrders.filters.from,
-                props.ui.adminOrders.filters.to
-              ]}
-              onChange={(e) => {
-                props.dispatch({
-                  type: 'CONFIG_ADMIN_ORDERS_FILTERS',
-                  payload: {
-                    from: e[0],
-                    to: e[1]
-                  }
-                })
-              }}
-            />
-            <Checkbox
-              checked={props.ui.adminOrders.filters.delivery}
-              label='Solo entregas'
-              className='pt-inline'
-              style={{
-                margin: '0 12px'
-              }}
-              onChange={
-                (e) => {
-                  props.dispatch({
-                    type: 'CONFIG_ADMIN_ORDERS_FILTERS',
-                    payload: {
-                      delivery: e.target.checked
-                    }
-                  })
-                }
-              }
-            />
-            <InputGroup
-              value={props.ui.adminOrders.filters.customer}
-              key='customer_filter'
-              className='filter-field'
-              onChange={
-                (e) => props.dispatch(
-                  {
-                    type: 'CONFIG_ADMIN_ORDERS_FILTERS',
-                    payload: {
-                      customer: e.target.value
-                    }
-                  }
-                )
-              }
-              placeholder='Información de cliente'
-            />
-            <Button
-              text='Limpiar filtros'
-              intent={Intent.PRIMARY}
-              className='cv-button'
-              onClick={
-                () => props.dispatch({
-                  type: 'CONFIG_ADMIN_ORDERS_FILTERS',
-                  payload: {
-                    from: null,
-                    to: null,
-                    delivery: null
-                  }
-                })
-              }
-            />
-          </div>
+          <FilterBar
+            actionType='CONFIG_ADMIN_ORDERS_FILTERS'
+            filters={props.ui.adminOrders.filters}
+            dispatch={props.dispatch}
+            showCheckbox
+          />
           <Router basename='/admin'>
             <Switch>
               <Route path='/all' component={tabs({ ...props, id: 'all' })} />

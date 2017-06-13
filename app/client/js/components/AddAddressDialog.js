@@ -64,18 +64,18 @@ const postAddress = ({ dispatch, address, atSelection }) => (e) => {
             type: 'HIDE_ADD_ADDRESS_DIALOG'
           })
 
-          if (atSelection === true) {
-            dispatch(
-              {
-                type: 'HIDE_SELECT_ADDRESS_DIALOG',
-                payload: {
-                  address: res.json().reverse()[0]
-                }
-              }
-            )
-          }
-
           return res.json()
+        })
+        .then((res) => {
+          dispatch(
+            {
+              type: 'ADDRESS_ADDED',
+              payload: {
+                address: res
+              }
+            }
+          )
+          return res
         })
       }
     )
