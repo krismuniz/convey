@@ -33,6 +33,7 @@ router.get('/sales-per-item', hasUser, isAdmin, (req, res) => {
       item
     where
       order_group.id = group_item.order_group_id
+      and order_group.customer_order_id = customer_order.id
       and group_item.item_id = item.id
       and customer_order.status_id = 5
   `).then((sales) => res.send(sales))
