@@ -20,14 +20,14 @@ const defaultState = {
     last_updated: 0,
     orders: []
   },
-  salesByItem: {
+  salesPerItem: {
     fetching: false,
     fetched: false,
     error: null,
     last_updated: 0,
     sales: []
   },
-  salesByCustomer: {
+  salesPerCustomer: {
     fetching: false,
     fetched: false,
     error: null,
@@ -153,31 +153,31 @@ export default (state = defaultState, action) => {
           orders: action.payload
         }
       }
-    case 'FETCH_SALES_BY_ITEM_PENDING':
+    case 'FETCH_SALES_PER_ITEM_PENDING':
       return {
         ...state,
-        salesByItem: {
-          ...state.salesByItem,
+        salesPerItem: {
+          ...state.salesPerItem,
           fetching: true,
           fetched: false
         }
       }
-    case 'FETCH_SALES_BY_ITEM_REJECTED':
+    case 'FETCH_SALES_PER_ITEM_REJECTED':
       return {
         ...state,
-        salesByItem: {
-          ...state.salesByItem,
+        salesPerItem: {
+          ...state.salesPerItem,
           fetching: false,
           fetched: false,
           error: action.payload,
           last_updated: Date.now()
         }
       }
-    case 'FETCH_SALES_BY_ITEM_FULFILLED':
+    case 'FETCH_SALES_PER_ITEM_FULFILLED':
       return {
         ...state,
-        salesByItem: {
-          ...state.salesByItem,
+        salesPerItem: {
+          ...state.salesPerItem,
           fetching: false,
           fetched: true,
           error: null,
@@ -185,30 +185,30 @@ export default (state = defaultState, action) => {
           sales: action.payload
         }
       }
-    case 'FETCH_SALES_BY_CUSTOMER_PENDING':
+    case 'FETCH_SALES_PER_CUSTOMER_PENDING':
       return {
         ...state,
-        salesByCustomer: {
+        salesPerCustomer: {
           fetching: true,
           fetched: false
         }
       }
-    case 'FETCH_SALES_BY_CUSTOMER_REJECTED':
+    case 'FETCH_SALES_PER_CUSTOMER_REJECTED':
       return {
         ...state,
-        salesByCustomer: {
-          ...state.salesByCustomer,
+        salesPerCustomer: {
+          ...state.salesPerCustomer,
           fetching: false,
           fetched: false,
           error: action.payload,
           last_updated: Date.now()
         }
       }
-    case 'FETCH_SALES_BY_CUSTOMER_FULFILLED':
+    case 'FETCH_SALES_PER_CUSTOMER_FULFILLED':
       return {
         ...state,
-        salesByCustomer: {
-          ...state.salesByCustomer,
+        salesPerCustomer: {
+          ...state.salesPerCustomer,
           fetching: false,
           fetched: true,
           error: null,

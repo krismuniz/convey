@@ -19,7 +19,7 @@ const isAdmin = (req, res, next) => {
   }
 }
 
-router.get('/sales-by-item', hasUser, isAdmin, (req, res) => {
+router.get('/sales-per-item', hasUser, isAdmin, (req, res) => {
   db.manyOrNone(`
     select
       item.id as id,
@@ -42,7 +42,7 @@ router.get('/sales-by-item', hasUser, isAdmin, (req, res) => {
     })
 })
 
-router.get('/sales-by-customer', hasUser, isAdmin, (req, res) => {
+router.get('/sales-per-customer', hasUser, isAdmin, (req, res) => {
   db.manyOrNone(`
     select
       customer.id,

@@ -59,11 +59,11 @@ export class Application extends React.Component {
         }
       }
 
-      if (Date.now() - this.props.data.salesByCustomer.last_updated >= 30000) {
+      if (Date.now() - this.props.data.salesPerCustomer.last_updated >= 30000) {
         if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
           this.props.dispatch({
-            type: 'FETCH_SALES_BY_CUSTOMER',
-            payload: fetch('/api/report/sales-by-customer', { credentials: 'include' })
+            type: 'FETCH_SALES_PER_CUSTOMER',
+            payload: fetch('/api/report/sales-per-customer', { credentials: 'include' })
               .then(res => {
                 if (!res.ok) throw Error(res.statusText)
                 return res.json()
@@ -72,11 +72,11 @@ export class Application extends React.Component {
         }
       }
 
-      if (Date.now() - this.props.data.salesByItem.last_updated >= 30000) {
+      if (Date.now() - this.props.data.salesPerItem.last_updated >= 30000) {
         if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
           this.props.dispatch({
-            type: 'FETCH_SALES_BY_ITEM',
-            payload: fetch('/api/report/sales-by-item', { credentials: 'include' })
+            type: 'FETCH_SALES_PER_ITEM',
+            payload: fetch('/api/report/sales-per-item', { credentials: 'include' })
               .then(res => {
                 if (!res.ok) throw Error(res.statusText)
                 return res.json()
@@ -115,10 +115,10 @@ export class Application extends React.Component {
       })
     }
 
-    if (props.data.salesByItem.fetched === false) {
+    if (props.data.salesPerItem.fetched === false) {
       props.dispatch({
-        type: 'FETCH_SALES_BY_ITEM',
-        payload: fetch('/api/report/sales-by-item', { credentials: 'include' })
+        type: 'FETCH_SALES_PER_ITEM',
+        payload: fetch('/api/report/sales-per-item', { credentials: 'include' })
           .then(res => {
             if (!res.ok) throw Error(res.statusText)
             return res.json()
@@ -126,10 +126,10 @@ export class Application extends React.Component {
       })
     }
 
-    if (props.data.salesByCustomer.fetched === false) {
+    if (props.data.salesPerCustomer.fetched === false) {
       props.dispatch({
-        type: 'FETCH_SALES_BY_CUSTOMER',
-        payload: fetch('/api/report/sales-by-customer', { credentials: 'include' })
+        type: 'FETCH_SALES_PER_CUSTOMER',
+        payload: fetch('/api/report/sales-per-customer', { credentials: 'include' })
           .then(res => {
             if (!res.ok) throw Error(res.statusText)
             return res.json()

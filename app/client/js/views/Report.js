@@ -41,7 +41,7 @@ const renderField = (field) => {
 
 const changeTab = ({ history }) => (newTabId, prevTabId) => history.push(`/${newTabId}`)
 
-const salesByItemTab = (args) => {
+const salesPerItemTab = (args) => {
   const getCell = (rowLabel, transform) => (rowIndex) => {
     return (
       <Cell>
@@ -69,7 +69,7 @@ const salesByItemTab = (args) => {
   )
 }
 
-const salesByCustomerTab = (args) => {
+const salesPerCustomerTab = (args) => {
   const getCell = (rowLabel, transform) => (rowIndex) => {
     return (
       <Cell>
@@ -144,12 +144,12 @@ const applyFilters = (data, filters, searchFilter) => {
 const tabs = (attr) => (args) => (
   <Tabs defaultSelectedTabId={attr.id} animate={false} className='pt-large' onChange={changeTab(args)}>
     {
-      salesByItemTab({
+      salesPerItemTab({
         id: 'sales-per-item',
         title: 'Ventas por artículo',
-        data: attr.data.salesByItem.fetched ? groupAndSumSales(
+        data: attr.data.salesPerItem.fetched ? groupAndSumSales(
           applyFilters(
-            attr.data.salesByItem.sales,
+            attr.data.salesPerItem.sales,
             attr.ui.reports.filters,
             itemSearch
           )
@@ -158,12 +158,12 @@ const tabs = (attr) => (args) => (
       })
     }
     {
-      salesByCustomerTab({
+      salesPerCustomerTab({
         id: 'sales-per-customer',
         title: 'Ventas por cliente',
-        data: attr.data.salesByItem.fetched ? groupAndSumSales(
+        data: attr.data.salesPerItem.fetched ? groupAndSumSales(
           applyFilters(
-            attr.data.salesByCustomer.sales,
+            attr.data.salesPerCustomer.sales,
             attr.ui.reports.filters,
             itemSearch
           )
@@ -175,7 +175,7 @@ const tabs = (attr) => (args) => (
 )
 
 export default function Report (props) {
-  return props.data.salesByItem.fetched && props.data.salesByCustomer.fetched ? (
+  return (
     <div className='view-container'>
       <div className='section-container'>
         <section style={{ margin: '24px' }}>
@@ -195,7 +195,7 @@ export default function Report (props) {
         </section>
       </div>
     </div>
-  ) : null
+  )
 }
 
 Report.propTypes = {
