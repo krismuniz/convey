@@ -175,7 +175,7 @@ const tabs = (attr) => (args) => (
 )
 
 export default function Report (props) {
-  return (
+  return props.data.salesByItem.fetched && props.data.salesByCustomer.fetched ? (
     <div className='view-container'>
       <div className='section-container'>
         <section style={{ margin: '24px' }}>
@@ -195,7 +195,7 @@ export default function Report (props) {
         </section>
       </div>
     </div>
-  )
+  ) : null
 }
 
 Report.propTypes = {

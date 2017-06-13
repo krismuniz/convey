@@ -155,7 +155,7 @@ const tabs = (attr) => (args) => (
 )
 
 export default function Admin (props) {
-  return (
+  return props.data.adminOrders.fetched ? (
     <div className='view-container'>
       <div className='section-container'>
         <section style={{ margin: '24px' }}>
@@ -180,7 +180,7 @@ export default function Admin (props) {
         </section>
       </div>
     </div>
-  )
+  ) : null
 }
 
 Admin.propTypes = {
