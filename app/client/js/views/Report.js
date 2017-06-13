@@ -215,13 +215,13 @@ const tabs = (attr) => (args) => (
       salesPerItemTab({
         id: 'sales-per-item',
         title: 'Ventas por artículo',
-        data: attr.data.salesPerItem.fetched ? groupAndSumSales(
+        data: groupAndSumSales(
           applyFilters(
             attr.data.salesPerItem.sales,
             attr.ui.reports.filters,
             itemSearch
           )
-        ) : [],
+        ),
         dispatch: attr.dispatch,
         filters: attr.ui.reports.filters
       })
@@ -230,13 +230,13 @@ const tabs = (attr) => (args) => (
       salesPerCustomerTab({
         id: 'sales-per-customer',
         title: 'Ventas por cliente',
-        data: attr.data.salesPerItem.fetched ? groupAndSumSales(
+        data: groupAndSumSales(
           applyFilters(
             attr.data.salesPerCustomer.sales,
             attr.ui.reports.filters,
             itemSearch
           )
-        ) : [],
+        ),
         dispatch: attr.dispatch,
         filters: attr.ui.reports.filters
       })
@@ -245,11 +245,11 @@ const tabs = (attr) => (args) => (
       salesPerOrderTab({
         id: 'sales-per-order',
         title: 'Ventas por orden',
-        data: attr.data.adminOrders.fetched ? applyFilters(
+        data: applyFilters(
           attr.data.adminOrders.orders.filter(v => v.paid === true),
           attr.ui.reports.filters,
           itemSearch
-        ) : [],
+        ),
         dispatch: attr.dispatch,
         filters: attr.ui.reports.filters
       })

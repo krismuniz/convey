@@ -59,7 +59,7 @@ export class Application extends React.Component {
         }
       }
 
-      if (Date.now() - this.props.data.salesPerCustomer.last_updated >= 30000) {
+      if (Date.now() - this.props.data.salesPerCustomer.last_updated >= 120000) {
         if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
           this.props.dispatch({
             type: 'FETCH_SALES_PER_CUSTOMER',
@@ -72,7 +72,7 @@ export class Application extends React.Component {
         }
       }
 
-      if (Date.now() - this.props.data.salesPerItem.last_updated >= 30000) {
+      if (Date.now() - this.props.data.salesPerItem.last_updated >= 120000) {
         if (this.props.data.customer.fetched && this.props.data.customer.profile.is_admin) {
           this.props.dispatch({
             type: 'FETCH_SALES_PER_ITEM',
@@ -84,7 +84,7 @@ export class Application extends React.Component {
           })
         }
       }
-    }, 60000)
+    }, 20000)
 
     this.props.dispatch({
       type: 'FETCH_PROFILE',
