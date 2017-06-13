@@ -23,7 +23,7 @@ import OrderCard from '../components/OrderCard'
 const changeTab = ({ history }) => (newTabId, prevTabId) => history.push(`/${newTabId}`)
 
 const testData = (params, search) => {
-  const removeNonDigits = (s) => s.replace(/\D/gi, '')
+  const removeNonDigits = (s) => s.replace ? s.replace(/\D/gi, '') : ''
   const regex = new RegExp(search, 'gi')
   const regexNum = new RegExp(removeNonDigits(search), 'i')
 
