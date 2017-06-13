@@ -49,6 +49,7 @@
     "body-parser": "1.15.2",
     "connect-redis": "3.3.0",
     "cookie-parser": "1.4.3",
+    "csv-express": "1.2.1",
     "date-fns": "1.28.5",
     "dlv": "1.1.0",
     "dotenv": "2.0.0",

@@ -81,7 +81,7 @@ const placeOrderAction = (props) => {
 
 const placeOrder = (props) => () => {
   const subtotal = props.order.groups
-    .map(v => v.items.map(v => v.price).reduce((a, b) => b ? a + b : a, 0))
+    .map(v => v.items.map(v => Number(v.price)).reduce((a, b) => b ? a + b : a, 0))
     .reduce((a, b) => b ? a + b : a, 0)
 
   const total = Math.round((subtotal + (props.order.delivery ? config.delivery_fee : 0)) * (1 + config.tax_rate))

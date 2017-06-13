@@ -12,7 +12,8 @@ import groupBy from 'lodash/groupBy'
 
 import {
   Tabs2 as Tabs,
-  Tab2 as Tab
+  Tab2 as Tab,
+  AnchorButton
 } from '@blueprintjs/core'
 
 import {
@@ -59,11 +60,24 @@ const salesPerItemTab = (args) => {
       id={args.id}
       title={args.title}
       panel={
-        <Table defaultRowHeight={32} numRows={args.data.length}>
-          <Column name='Artículo' renderCell={getCell('item')} />
-          <Column name='Cantidad vendida' renderCell={getCell('quantity')} />
-          <Column name='Ventas' renderCell={getCell('sales', toDollars)} />
-        </Table>
+        <div>
+          <Table defaultRowHeight={32} numRows={args.data.length}>
+            <Column name='Artículo' renderCell={getCell('item')} />
+            <Column name='Cantidad vendida' renderCell={getCell('quantity')} />
+            <Column name='Ventas' renderCell={getCell('sales', toDollars)} />
+          </Table>
+          <br />
+          <AnchorButton
+            className='cv-button pt-intent-success'
+            href={
+              `/api/report/${args.id}/csv` +
+              `${args.filters.from ? (`?from=${args.filters.from}`) : ('')}` +
+              `${args.filters.to ? (`&to=${args.filters.to}`) : ('')}`
+            }
+            iconName='download'
+            text='Descargar como CSV'
+          />
+        </div>
       }
     />
   )
@@ -87,13 +101,67 @@ const salesPerCustomerTab = (args) => {
       id={args.id}
       title={args.title}
       panel={
-        <Table defaultRowHeight={32} numRows={args.data.length}>
-          <Column name='Nombre' renderCell={getCell('first_name')} />
-          <Column name='Apellido' renderCell={getCell('last_name')} />
-          <Column name='Email' renderCell={getCell('email')} />
-          <Column name='Teléfono' renderCell={getCell('phone_number')} />
-          <Column name='Ventas' renderCell={getCell('sales', toDollars)} />
-        </Table>
+        <div>
+          <Table defaultRowHeight={32} numRows={args.data.length}>
+            <Column name='Nombre' renderCell={getCell('first_name')} />
+            <Column name='Apellido' renderCell={getCell('last_name')} />
+            <Column name='Email' renderCell={getCell('email')} />
+            <Column name='Teléfono' renderCell={getCell('phone_number')} />
+            <Column name='Ventas' renderCell={getCell('sales', toDollars)} />
+          </Table>
+          <br />
+          <AnchorButton
+            className='cv-button pt-intent-success'
+            href={
+              `/api/report/${args.id}/csv` +
+              `${args.filters.from ? (`?from=${args.filters.from}`) : ('')}` +
+              `${args.filters.to ? (`&to=${args.filters.to}`) : ('')}`
+            }
+            iconName='download'
+            text='Descargar como CSV'
+          />
+        </div>
+      }
+    />
+  )
+}
+
+const salesPerOrderTab = (args) => {
+  const getCell = (rowLabel, transform) => (rowIndex) => {
+    return (
+      <Cell>
+        {
+          transform
+            ? transform(dlv(args.data[rowIndex], rowLabel))
+            : renderField(dlv(args.data[rowIndex], rowLabel))
+        }
+      </Cell>
+    )
+  }
+
+  const calcSales = (rowIndex) => {
+    const subtotal = args.data[rowIndex].groups
+      .map(v => v.items.map(v => Number(v.price)).reduce((a, b) => b ? a + b : a, 0))
+      .reduce((a, b) => b ? a + b : a, 0)
+
+    return <Cell>{toDollars(subtotal)}</Cell>
+  }
+
+  return (
+    <Tab
+      id={args.id}
+      title={args.title}
+      panel={
+        <div>
+          <Table defaultRowHeight={32} numRows={args.data.length}>
+            <Column name='Num.' renderCell={getCell('id')} />
+            <Column name='Entrega' renderCell={getCell('delivery')} />
+            <Column name='Fecha' renderCell={getCell('creation_date')} />
+            <Column name='Artículos' renderCell={getCell('groups')} />
+            <Column name='Cliente' renderCell={getCell('customer')} />
+            <Column name='Venta' renderCell={calcSales} />
+          </Table>
+        </div>
       }
     />
   )
@@ -154,7 +222,8 @@ const tabs = (attr) => (args) => (
             itemSearch
           )
         ) : [],
-        dispatch: attr.dispatch
+        dispatch: attr.dispatch,
+        filters: attr.ui.reports.filters
       })
     }
     {
@@ -168,13 +237,28 @@ const tabs = (attr) => (args) => (
             itemSearch
           )
         ) : [],
-        dispatch: attr.dispatch
+        dispatch: attr.dispatch,
+        filters: attr.ui.reports.filters
+      })
+    }
+    {
+      salesPerOrderTab({
+        id: 'sales-per-order',
+        title: 'Ventas por orden',
+        data: attr.data.adminOrders.fetched ? applyFilters(
+          attr.data.adminOrders.orders.filter(v => v.paid === true),
+          attr.ui.reports.filters,
+          itemSearch
+        ) : [],
+        dispatch: attr.dispatch,
+        filters: attr.ui.reports.filters
       })
     }
   </Tabs>
 )
 
 export default function Report (props) {
+  document.title = 'Reportes de ventas - Rambito\'s'
   return (
     <div className='view-container'>
       <div className='section-container'>
@@ -189,6 +273,7 @@ export default function Report (props) {
             <Switch>
               <Route path='/sales-per-item' component={tabs({ ...props, id: 'sales-per-item' })} />
               <Route path='/sales-per-customer' component={tabs({ ...props, id: 'sales-per-customer' })} />
+              <Route path='/sales-per-order' component={tabs({ ...props, id: 'sales-per-order' })} />
               <Redirect from='/' to='/sales-per-item' />
             </Switch>
           </Router>
