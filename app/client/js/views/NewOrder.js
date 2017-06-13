@@ -144,11 +144,29 @@ export default class NewOrderView extends React.Component {
             <section>
               <div className='section-info'>
                 <h4>
+                  ¿Algún acompañante?
+                </h4>
+                <p>Selecciona un aperitivo para acompañar tu orden.</p>
+              </div>
+              <ItemGrid dispatch={this.props.dispatch} typeId={6} items={this.props.data.items.items} />
+            </section>
+            <section>
+              <div className='section-info'>
+                <h4>
                   ¿Algo para beber?
                 </h4>
                 <p>Selecciona cualquiera de nuestra amplia variedad de refrescos.</p>
               </div>
               <ItemGrid dispatch={this.props.dispatch} typeId={4} items={this.props.data.items.items} />
+            </section>
+            <section>
+              <div className='section-info'>
+                <h4>
+                  ¡Deja espacio para el postre!
+                </h4>
+                <p>Nuestra sabrosa variedad de postres.</p>
+              </div>
+              <ItemGrid dispatch={this.props.dispatch} typeId={5} items={this.props.data.items.items} />
             </section>
           </div>
         </MediaQuery>
