@@ -47,7 +47,7 @@ export default function OrderCard (props) {
           )
         }
       </div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', flexDirection: props.mobile ? 'column' : '' }}>
         <div style={{ flex: '50%', padding: '8px' }}>
           <OrderSummaryTable hideTitle showClearCart={false} noMargins order={props.order} dispatch={props.dispatch} />
           <PaymentDetails dispatch={props.dispatch} order={props.order} asAdmin={props.asAdmin} />
@@ -103,6 +103,7 @@ export default function OrderCard (props) {
 }
 
 OrderCard.propTypes = {
+  mobile: PropTypes.bool,
   asAdmin: PropTypes.bool,
   order: PropTypes.object,
   dispatch: PropTypes.func

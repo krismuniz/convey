@@ -9,6 +9,8 @@ import {
   Intent
 } from '@blueprintjs/core'
 
+import MediaQuery from 'react-responsive'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -18,11 +20,11 @@ import {
 
 import OrderCard from '../components/OrderCard'
 
-const UpcomingOrders = ({ history, orders, dispatch }) => (
+const UpcomingOrders = ({ history, orders, dispatch, mobile }) => (
   <div style={{ borderRadius: '3px' }}>
     {
       orders.filter(v => v.status.id < 5).length > 0
-        ? orders.filter(v => v.status.id < 5).map((v, i) => <OrderCard key={i} order={v} />)
+        ? orders.filter(v => v.status.id < 5).map((v, i) => <OrderCard key={i} order={v} mobile={mobile} />)
         : (
           <NonIdealState
             title='¿Tienes hambre?'
@@ -43,22 +45,24 @@ const UpcomingOrders = ({ history, orders, dispatch }) => (
 )
 
 UpcomingOrders.propTypes = {
+  mobile: PropTypes.bool,
   dispatch: PropTypes.func,
   history: PropTypes.object,
   orders: PropTypes.array
 }
 
-const PastOrders = ({ history, orders, dispatch }) => (
+const PastOrders = ({ history, orders, dispatch, mobile }) => (
   <div style={{ borderRadius: '3px' }}>
     {
       orders.length > 0
-        ? orders.filter(v => v.status.id === 5).map((v, i) => <OrderCard key={i} order={v} />)
+        ? orders.filter(v => v.status.id === 5).map((v, i) => <OrderCard key={i} order={v} mobile={mobile} />)
         : (<p>No previous orders</p>)
     }
   </div>
 )
 
 PastOrders.propTypes = {
+  mobile: PropTypes.bool,
   dispatch: PropTypes.func,
   history: PropTypes.object,
   orders: PropTypes.array
@@ -71,7 +75,16 @@ const tabs = (attr) => (args) => (
     <Tab
       id='upcoming'
       title='Actuales'
-      panel={<UpcomingOrders history={attr.history} orders={attr.data.orders.orders} dispatch={attr.dispatch} />}
+      panel={
+        <div>
+          <MediaQuery maxWidth={979}>
+            <UpcomingOrders mobile history={attr.history} orders={attr.data.orders.orders} dispatch={attr.dispatch} />
+          </MediaQuery>
+          <MediaQuery minWidth={980}>
+            <UpcomingOrders mobile={false} history={attr.history} orders={attr.data.orders.orders} dispatch={attr.dispatch} />
+          </MediaQuery>
+        </div>
+      }
     />
     {
       attr.data.orders.orders ? (
@@ -79,11 +92,24 @@ const tabs = (attr) => (args) => (
           id='previous'
           title='Pedidos pasados'
           panel={
-            <PastOrders
-              history={attr.history}
-              orders={attr.data.orders.orders}
-              dispatch={attr.dispatch}
-            />
+            <div>
+              <MediaQuery maxWidth={979}>
+                <PastOrders
+                  mobile
+                  history={attr.history}
+                  orders={attr.data.orders.orders}
+                  dispatch={attr.dispatch}
+                />
+              </MediaQuery>
+              <MediaQuery minWidth={980}>
+                <PastOrders
+                  mobile={false}
+                  history={attr.history}
+                  orders={attr.data.orders.orders}
+                  dispatch={attr.dispatch}
+                />
+              </MediaQuery>
+            </div>
           }
           disabled={attr.data.orders.orders.filter(v => v.status.id === 5).length === 0}
         />
