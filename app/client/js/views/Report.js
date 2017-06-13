@@ -112,7 +112,7 @@ const groupAndSumSales = (data, sum) => {
 }
 
 const itemSearch = (item, search) => {
-  const removeNonDigits = (s) => s.replace ? s.replace(/\D/gi, '') : ''
+  const removeNonDigits = (s) => (s && s.replace) ? s.replace(/\D/gi, '') : ''
   const regex = new RegExp(search, 'gi')
   const regexNum = new RegExp(removeNonDigits(search), 'i')
 
