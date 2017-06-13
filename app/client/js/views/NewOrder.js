@@ -121,11 +121,48 @@ export default class NewOrderView extends React.Component {
             <section>
               <div className='section-info'>
                 <h4>
+                  ¿Algún acompañante?
+                </h4>
+                <p>Selecciona un aperitivo para acompañar tu orden.</p>
+              </div>
+              <CarouselContainer dispatch={this.props.dispatch} typeId={6} items={this.props.data.items.items} />
+            </section>
+            <section>
+              <div className='section-info'>
+                <h4>
+                  ¡Deja espacio para el postre!
+                </h4>
+                <p>Nuestra sabrosa variedad de postres.</p>
+              </div>
+              <CarouselContainer dispatch={this.props.dispatch} typeId={5} items={this.props.data.items.items} />
+            </section>
+            <section>
+              <div className='section-info'>
+                <h4>
                   ¿Algo para beber?
                 </h4>
                 <p>Selecciona cualquiera de nuestra amplia variedad de refrescos.</p>
               </div>
               <CarouselContainer dispatch={this.props.dispatch} typeId={4} items={this.props.data.items.items} />
+            </section>
+            <hr />
+            <section style={{ margin: '16px', paddingBottom: '40px' }}>
+              <OrderSummaryTable
+                order={this.props.local.create.order}
+                dispatch={this.props.dispatch}
+                showClearCart
+                editable
+              />
+              <div style={{
+                position: 'fixed',
+                bottom: '0',
+                left: '0',
+                right: '0',
+                padding: '16px',
+                background: 'white'
+              }}>
+                <OrderActions validOrder={this.props.local.create.order.groups.length > 0} dispatch={this.props.dispatch} />
+              </div>
             </section>
           </div>
         </MediaQuery>
@@ -153,20 +190,20 @@ export default class NewOrderView extends React.Component {
             <section>
               <div className='section-info'>
                 <h4>
-                  ¿Algo para beber?
-                </h4>
-                <p>Selecciona cualquiera de nuestra amplia variedad de refrescos.</p>
-              </div>
-              <ItemGrid dispatch={this.props.dispatch} typeId={4} items={this.props.data.items.items} />
-            </section>
-            <section>
-              <div className='section-info'>
-                <h4>
                   ¡Deja espacio para el postre!
                 </h4>
                 <p>Nuestra sabrosa variedad de postres.</p>
               </div>
               <ItemGrid dispatch={this.props.dispatch} typeId={5} items={this.props.data.items.items} />
+            </section>
+            <section>
+              <div className='section-info'>
+                <h4>
+                  ¿Algo para beber?
+                </h4>
+                <p>Selecciona cualquiera de nuestra amplia variedad de refrescos.</p>
+              </div>
+              <ItemGrid dispatch={this.props.dispatch} typeId={4} items={this.props.data.items.items} />
             </section>
           </div>
         </MediaQuery>
