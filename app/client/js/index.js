@@ -23,6 +23,7 @@ import OrdersView from './views/Orders'
 import ProfileView from './views/Profile'
 import AdminView from './views/Admin'
 import ReportView from './views/Report'
+import RequestAdmin from './views/RequestAdmin'
 
 import store from './store'
 
@@ -172,6 +173,13 @@ export class Application extends React.Component {
               <Route path='/orders' component={Orders} />
               <Route exact path='/new-order' component={NewOrder} />
               <Route exact path='/profile' component={Profile} />
+              <Route
+                exact
+                path='/admin/request'
+                component={
+                  RequestAdmin
+                }
+              />
               <Route
                 path='/admin'
                 component={this.props.data.customer.profile.is_admin ? (Admin) : Profile}

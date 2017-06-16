@@ -86,7 +86,8 @@ app.get('/logout', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login', {
-    title: 'Ingresar - Rambito\'s'
+    title: 'Ingresar - Rambito\'s',
+    message: req.query.admin_request ? 'Te agregamos como admin. Accesa de nuevo con la misma cuenta.' : 'Ordena pizza. Sin filas. '
   })
 })
 

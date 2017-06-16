@@ -1,0 +1,61 @@
+<style>
+  body {
+    background-color: #F9F9F9;
+    font-family: sans-serif;
+    color: #AAA;
+  }
+
+  #background {
+    background: url('../../images/pizza_bg.jpg') no-repeat center center;
+    background-size: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+
+  #login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  #login-screen #login-box {
+    margin: 12px;
+    width: 256px;
+    background: #fff;
+    border-radius: 3px;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+
+  #login-screen #login-box h3 {
+    font-size: 18px;
+    color: #0d2b3e;
+    font-weight: 400;
+    margin: 1.5em 0;
+    line-height: 1.25em;
+    text-align: center;
+    -webkit-user-select: initial !important;
+  }
+</style>
+<div id="background"></div>
+<div id="login-screen">
+  <div id="login-box" class="animated-slow zoomIn">
+    <h3>{{title}}</h3>
+    <p>{{message}}</p>
+    <a href='/admin/request'>Reintentar</a>
+  </div>
+</div>
