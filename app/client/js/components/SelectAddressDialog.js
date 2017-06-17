@@ -46,7 +46,7 @@ export default function SelectAddressDialog (props) {
         </Collapse>
         <Collapse isOpen={props.order.delivery}>
           <div className='pt-label'>
-            ¿Dónde quieres que te entreguemos tu comida?
+            ¿Dónde quieres que te entreguemos tu comida? Haz doble-click para modificar o eliminar una dirección.
             {
               props.addresses.map((v, i) => {
                 return (

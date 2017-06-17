@@ -17,7 +17,7 @@ export default function Profile (props) {
           </section>
           <section style={{ margin: '24px' }}>
             <h4>Tus direcciones</h4>
-            <p>Lista de direcciones pre-guardadas para acceso rápido al ordenar</p>
+            <p>Lista de direcciones pre-guardadas para acceso rápido al ordenar. Haz doble-click para modificar o eliminar una dirección.</p>
             {
               props.data.customer.profile.addresses.map((v, i) => {
                 return (
