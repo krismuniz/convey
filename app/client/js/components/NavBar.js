@@ -60,9 +60,9 @@ export default function NavBar (props) {
             ) : (
               <Button
                 className='pt-minimal'
-                text='Ayuda'
+                text='Tus órdenes'
                 style={{ marginRight: '8px' }}
-                onClick={() => props.history.push('/help')}
+                onClick={() => props.history.push('/orders')}
               />
             )
           }
