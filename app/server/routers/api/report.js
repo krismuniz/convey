@@ -58,7 +58,7 @@ router.get('/sales-per-item/csv', hasUser, isAdmin, (req, res) => {
       to: new Date(req.query.to)
     }).then((sales) => {
       res.set({
-        'Content-Type': 'text/csv',
+        'Content-Type': 'text/csv; charset=utf-8',
         'Content-Disposition': 'attachment; filename="sales-per-item.csv'
       })
       res.csv(
@@ -68,7 +68,8 @@ router.get('/sales-per-item/csv', hasUser, isAdmin, (req, res) => {
             quantity: Number(v.quantity),
             sales: toDollars(Number(v.sales))
           }
-        })
+        }),
+        true
       )
     })
       .catch((e) => {
@@ -107,7 +108,7 @@ router.get('/sales-per-customer/csv', hasUser, isAdmin, (req, res) => {
       to: new Date(req.query.to)
     }).then((sales) => {
       res.set({
-        'Content-Type': 'text/csv',
+        'Content-Type': 'text/csv; charset=utf-8',
         'Content-Disposition': 'attachment; filename="sales-per-customer.csv'
       })
       res.csv(
@@ -116,7 +117,8 @@ router.get('/sales-per-customer/csv', hasUser, isAdmin, (req, res) => {
             ...v,
             sales: toDollars(Number(v.sales))
           }
-        })
+        }),
+        true
       )
     })
       .catch((e) => {
