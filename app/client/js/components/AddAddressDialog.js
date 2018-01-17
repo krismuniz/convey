@@ -174,7 +174,7 @@ export default function SelectAddressDialog (props) {
             </select>
           </div>
           <p className='pt-text-muted' style={{ marginTop: '10px' }}>
-            Por el momento Rambito's solo entrega a Santa Isabel, Coamo, Salinas y Ponce.
+            Por el momento solo entregamos a Santa Isabel, Coamo, Salinas y Ponce.
           </p>
         </label>
         <label className='pt-label'>
