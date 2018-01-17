@@ -88,6 +88,9 @@
     "url-loader": "0.5.7",
     "whatwg-fetch": "2.0.3"
   },
+  "optionalDependencies": {
+    "fsevents": "1.1.1"
+  },
   "devDependencies": {
     "babel-cli": "6.22.2",
     "babel-eslint": "7.1.1",
@@ -100,7 +103,6 @@
     "eslint-config-standard-react": "4.2.0",
     "eslint-plugin-promise": "2.0.1",
     "eslint-plugin-standard": "2.0.0",
-    "fsevents": "1.1.1",
     "less": "2.7.2",
     "less-loader": "2.2.3",
     "style-loader": "0.13.1",
