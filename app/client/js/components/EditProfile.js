@@ -112,7 +112,7 @@ const updateProfile = ({ dispatch, local }) => (e) => {
   }
 
   if (!isValidPhoneNumber(local.edit.profile.phone_number).valid) {
-    showErrorToast('Por favor provea un nuúmero de teléfono válido')
+    showErrorToast('Por favor provea un número de teléfono válido')
     return
   }
 
