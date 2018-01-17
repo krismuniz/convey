@@ -85,7 +85,7 @@ export default class AddToOrderDialog extends React.Component {
                   })
 
                   Toaster.show({
-                    message: `Added a ${item.name} to your order`,
+                    message: `Se añadió el artículo ${item.name} a su orden`,
                     iconName: 'tick',
                     intent: Intent.SUCCESS,
                     timeout: 2000
